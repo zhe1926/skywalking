@@ -1,20 +1,22 @@
 syntax = "proto3";
 
-package envoy.service.metrics.v2;
+package envoy.service.metrics.v3;
 
+import "envoy/config/core/v3/base.proto";
+
+import "metrics.proto";
+
+import "udpa/annotations/status.proto";
+import "udpa/annotations/versioning.proto";
+import "validate/validate.proto";
+
+option java_package = "io.envoyproxy.envoy.service.metrics.v3";
 option java_outer_classname = "MetricsServiceProto";
 option java_multiple_files = true;
-option java_package = "io.envoyproxy.envoy.service.metrics.v2";
-option go_package = "v2";
 option java_generic_services = true;
+option (udpa.annotations.file_status).package_version_status = ACTIVE;
 
-import "envoy/api/v2/core/base.proto";
-
-// This line is different from the definition in https://github.com/envoyproxy/data-plane-api to let
-// the dependency structure clearer.
-import "prometheus/client_model/metrics.proto";
-
-import "validate/validate.proto";
+// [#protodoc-title: Metrics service]
 
 // Service for streaming metrics to server that consumes the metrics data. It uses Prometheus metric
 // data model as a standard to represent metrics information.
@@ -26,12 +28,20 @@ service MetricsService {
 }
 
 message StreamMetricsResponse {
+  option (udpa.annotations.versioning).previous_message_type =
+      "envoy.service.metrics.v2.StreamMetricsResponse";
 }
 
 message StreamMetricsMessage {
+  option (udpa.annotations.versioning).previous_message_type =
+      "envoy.service.metrics.v2.StreamMetricsMessage";
+
   message Identifier {
+    option (udpa.annotations.versioning).previous_message_type =
+        "envoy.service.metrics.v2.StreamMetricsMessage.Identifier";
+
     // The node sending metrics over the stream.
-    envoy.api.v2.core.Node node = 1 [(validate.rules).message.required = true];
+    config.core.v3.Node node = 1 [(validate.rules).message = {required: true}];
   }
 
   // Identifier data effectively is a structured metadata. As a performance optimization this will

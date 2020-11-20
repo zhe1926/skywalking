@@ -18,9 +18,9 @@
 
 package org.apache.skywalking.oap.server.receiver.envoy;
 
-import io.envoyproxy.envoy.service.accesslog.v2.AccessLogServiceGrpc;
-import io.envoyproxy.envoy.service.accesslog.v2.StreamAccessLogsMessage;
-import io.envoyproxy.envoy.service.accesslog.v2.StreamAccessLogsResponse;
+import io.envoyproxy.envoy.service.accesslog.v3.AccessLogServiceGrpc;
+import io.envoyproxy.envoy.service.accesslog.v3.StreamAccessLogsMessage;
+import io.envoyproxy.envoy.service.accesslog.v3.StreamAccessLogsResponse;
 import io.grpc.stub.StreamObserver;
 import java.util.ArrayList;
 import java.util.List;
